@@ -20,16 +20,19 @@ export default function Navbar() {
   const pathname = usePathname();
   const [currentDate, setCurrentDate] = useState<string>("");
 
-  // dynamically set date without the hydration problem of the server and clientts
   useEffect(() => {
-    const today = new Date();
-    const formatted = today.toLocaleDateString("bn-BD", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-    setCurrentDate(formatted);
+    const timer = setTimeout(() => {
+      const today = new Date();
+      const formatted = today.toLocaleDateString("bn-BD", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+      setCurrentDate(formatted);
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
