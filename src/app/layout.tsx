@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Marquee from "@/components/Marquee";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[#f4f6f4] text-gray-800">
         <Navbar />
+        <Marquee />
         <main className="flex-1 max-w-7xl w-full mx-auto px-4">{children}</main>
         <Footer />
         <Toaster position="top-right" />
