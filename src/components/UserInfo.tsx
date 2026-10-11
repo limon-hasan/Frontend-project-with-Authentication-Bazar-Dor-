@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import toast from "react-hot-toast";
 
 const UserInfo = () => {
   const router = useRouter();
@@ -17,6 +17,7 @@ const UserInfo = () => {
   const handleSignout = async () => {
     await authClient.signOut();
     setIsOpen(false);
+    toast.success("সফলভাবে সাইন আউট হয়েছে!");
     router.refresh();
   };
 
@@ -36,7 +37,14 @@ const UserInfo = () => {
     };
   }, []);
 
-  if (isPending) return null;
+  if (isPending) {
+    return (
+      <div className="flex items-center gap-2.5">
+        <div className="skeleton w-8 h-8 rounded-full shrink-0 bg-gray-200"></div>
+        <div className="skeleton w-16 h-4 hidden sm:block bg-gray-200 rounded-md"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center">
@@ -49,13 +57,11 @@ const UserInfo = () => {
           >
             <div className="w-8 h-8 rounded-full bg-[#058a44] text-white flex items-center justify-center font-bold text-xs shadow-xs border border-emerald-100 overflow-hidden shrink-0">
               {user.image ? (
-                <Image
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   src={user.image}
                   alt={user.name || "User"}
-                  width={32}
-                  height={32}
                   className="w-full h-full object-cover"
-                  unoptimized
                 />
               ) : (
                 <span>

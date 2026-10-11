@@ -1,30 +1,38 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
+// import { router } from "better-auth/api";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  const router = useRouter(); // <- Ei line-ti shurute boshate hobe
   const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
     const user = Object.fromEntries(formData.entries()) as {
       email: string;
       password: string;
     };
+
     console.log(user);
 
     const { data, error } = await authClient.signIn.email({
       ...user,
-      callbackURL: "/",
     });
 
     if (data) {
-      toast.success("Sign in successful!");
-      console.log(data);
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+
+      setTimeout(() => {
+        router.push("/");
+        router.refresh();
+      }, 100);
     }
+
     if (error) {
-      toast.error("Something went wrong!");
+      toast.error(error.message || "Something went wrong!");
       console.log(error);
     }
   };

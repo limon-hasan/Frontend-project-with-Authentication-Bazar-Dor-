@@ -35,32 +35,22 @@ export default function SignUpPage() {
       name,
       email,
       password,
-      callbackURL: "/",
     });
 
     setLoading(false);
 
     if (data) {
-      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
-      router.push("/");
-      router.refresh();
+      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে! অনুগ্রহ করে সাইন ইন করুন।");
+
+      setTimeout(() => {
+        router.push("/signin");
+      }, 600);
     }
 
     if (error) {
       toast.error(error.message || "অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে!");
       console.error(error);
     }
-  };
-
-  const handleGoogleSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
-  };
-  const handleGithubSignin = async () => {
-    const data = await authClient.signIn.social({
-      provider: "github",
-    });
   };
 
   return (
@@ -148,7 +138,6 @@ export default function SignUpPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <button
-            onClick={handleGoogleSignin}
             type="button"
             className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >
@@ -173,7 +162,7 @@ export default function SignUpPage() {
             <span className="whitespace-nowrap">Google দিয়ে চালিয়ে যান</span>
           </button>
 
-          <button onClick={handleGithubSignin}
+          <button
             type="button"
             className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >
