@@ -52,6 +52,17 @@ export default function SignUpPage() {
     }
   };
 
+  const handleGoogleSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+  const handleGithubSignin = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+    });
+  };
+
   return (
     <main className="min-h-[85vh] flex flex-col items-center justify-center py-10 px-4">
       <div className="text-center space-y-1.5 mb-6">
@@ -137,6 +148,7 @@ export default function SignUpPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <button
+            onClick={handleGoogleSignin}
             type="button"
             className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >
@@ -161,7 +173,7 @@ export default function SignUpPage() {
             <span className="whitespace-nowrap">Google দিয়ে চালিয়ে যান</span>
           </button>
 
-          <button
+          <button onClick={handleGithubSignin}
             type="button"
             className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >

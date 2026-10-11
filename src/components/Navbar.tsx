@@ -47,10 +47,8 @@ export default function Navbar() {
           <UserInfo />
         </div>
 
-        {/* ক্যাটাগরি তালিকা (অ্যাক্টিভ হলে সবুজ ক্যাপসুল হাইলাইট) */}
         <nav className="flex items-center justify-start gap-2.5 sm:gap-3 py-2.5 overflow-x-auto no-scrollbar text-xs sm:text-sm font-semibold">
           {categories.map((cat) => {
-            // ২. বর্তমান ইউআরএল এই ক্যাটাগরির সাথে মিলছে কি না চেক করা
             const isActive = pathname === `/category/${cat.id}`;
 
             return (
