@@ -48,7 +48,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <span className="text-xs text-gray-400 block font-normal mb-0.5">
+          <span className="text-xs text-black-400 block font-normal mb-0.5">
             আজকের দাম
           </span>
           <span className="text-lg font-black text-gray-900">
