@@ -1,22 +1,32 @@
 "use client";
+
+import { Suspense, useEffect, useRef } from "react";
 import { authClient } from "@/lib/auth-client";
-// import { router } from "better-auth/api";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function SignInPage() {
-  const router = useRouter(); // <- Ei line-ti shurute boshate hobe
-  const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+function SignInForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const hasShownToast = useRef(false);
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error === "unauthorized" && !hasShownToast.current) {
+      toast.error("প্রোটেক্টেড পেজ দেখার জন্য অনুগ্রহ করে আগে সাইন ইন করুন!");
+      hasShownToast.current = true;
+    }
+  }, [searchParams]);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries()) as {
       email: string;
       password: string;
     };
-
-    console.log(user);
 
     const { data, error } = await authClient.signIn.email({
       ...user,
@@ -25,27 +35,31 @@ export default function SignInPage() {
     if (data) {
       toast.success("সফলভাবে সাইন ইন হয়েছে!");
 
+      const redirectPath = searchParams.get("redirect") || "/";
       setTimeout(() => {
-        router.push("/");
+        router.push(redirectPath);
         router.refresh();
-      }, 100);
+      }, 300);
     }
 
     if (error) {
-      toast.error(error.message || "Something went wrong!");
+      toast.error(error.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়!");
       console.log(error);
     }
   };
+
   const handleGoogleSignin = async () => {
-    const data = await authClient.signIn.social({
+    await authClient.signIn.social({
       provider: "google",
     });
   };
+
   const handleGithubSignin = async () => {
-    const data = await authClient.signIn.social({
+    await authClient.signIn.social({
       provider: "github",
     });
   };
+
   return (
     <main className="min-h-[85vh] flex flex-col items-center justify-center py-10 px-4">
       <div className="text-center space-y-1.5 mb-6">
@@ -169,5 +183,13 @@ export default function SignInPage() {
         </Link>
       </div>
     </main>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[85vh]" />}>
+      <SignInForm />
+    </Suspense>
   );
 }

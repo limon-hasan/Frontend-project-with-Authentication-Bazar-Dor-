@@ -45,21 +45,24 @@ export default function Navbar() {
           <UserInfo />
         </div>
 
-        <nav className="flex items-center justify-start gap-2.5 sm:gap-3 py-2.5 overflow-x-auto no-scrollbar text-xs sm:text-sm font-semibold">
+        <nav className="flex items-center justify-start gap-2 py-3 overflow-x-auto no-scrollbar text-xs sm:text-sm font-medium">
           {categories.map((cat) => {
-            const isActive = pathname === `/category/${cat.id}`;
+            const currentPath = decodeURIComponent(pathname);
+            const isActive =
+              currentPath === `/category/${cat.id}` ||
+              currentPath.startsWith(`/category/${cat.id}/`);
 
             return (
               <Link
                 key={cat.id}
                 href={`/category/${cat.id}`}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl whitespace-nowrap shrink-0 transition-all ${
+                className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full whitespace-nowrap shrink-0 transition-colors ${
                   isActive
-                    ? "bg-[#007a3d] text-white font-bold shadow-xs scale-100" // স্ক্রিনশটের মতো সবুজ ব্যাকগ্রাউন্ড
-                    : "text-gray-700 hover:text-emerald-700 hover:bg-gray-50"
+                    ? "bg-[#007a3d] text-white font-semibold shadow-xs"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-100/80"
                 }`}
               >
-                <span className="text-base">{cat.icon}</span>
+                <span className="text-base leading-none">{cat.icon}</span>
                 <span>{cat.nameBn}</span>
               </Link>
             );

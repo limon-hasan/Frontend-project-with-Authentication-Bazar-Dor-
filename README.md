@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 বাজার দর (BazarDor)
 
-## Getting Started
+> নিত্যপ্রয়োজনীয় পণ্যের সর্বশেষ বাজার দর এক নজরে যাচাই করার একটি আধুনিক ও নির্ভরযোগ্য প্ল্যাটফর্ম।
 
-First, run the development server:
+**বাজার দর (BazarDor)** হলো একটি আধুনিক, দ্রুতগতির ও রেসপনসিভ ওয়েব অ্যাপ্লিকেশন যা ব্যবহারকারীদের প্রতিদিনের চাল, ডাল, তেল, শাকসবজি, মাছ, মাংস ইত্যাদির সঠিক বাজারদর ও মূল্যের তারতম্য পর্যবেক্ষণ করতে সাহায্য করে।
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 লাইভ ডেমো (Live Demo)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **লাইভ ওয়েবসাইট:** [https://frontend-project-with-authentication-bazar-dor.vercel.app](https://frontend-project-with-authentication-bazar-dor.vercel.app)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ ব্যবহৃত প্রযুক্তিসমূহ (Technologies Used)
 
-To learn more about Next.js, take a look at the following resources:
+- **ফ্রেমওয়ার্ক:** [Next.js](https://nextjs.org/) (App Router)
+- **প্রোগ্রামিং ল্যাঙ্গুয়েজ:** [TypeScript](https://www.typescriptlang.org/)
+- **স্টাইলিং:** [Tailwind CSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+- **অথেনটিকেশন:** [Better Auth](https://better-auth.com/) (Email & Password, Google, GitHub)
+- **টোস্ট নোটিফিকেশন:** [React Hot Toast](https://react-hot-toast.com/)
+- **হোস্টিং ও ডিপ্লয়মেন্ট:** [Vercel](https://vercel.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ প্রধান ৫টি বৈশিষ্ট্য (5 Key Features)
 
-## Deploy on Vercel
+1. **রিয়েল-টাইম প্রাইস টিকার ও ক্যাটাগরি ব্রাউজিং:**
+   লাইভ বাংলা টিকার স্ক্রলারের মাধ্যমে সাম্প্রতিক পণ্যমূল্য ও দামের শতকরা হ্রাস-বৃদ্ধি প্রদর্শন এবং মসৃণ ক্যাটাগরি ফিল্টারিং।
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **বাংলা নিউমেরিক্যাল সর্টিং (Numeric Price Sorting):**
+   বাংলা সংখ্যার স্ট্রিংয়ের বদলে প্রকৃত গাণিতিক মান (numeric value) অনুযায়ী "দাম: কম থেকে বেশি" এবং "দাম: বেশি থেকে কম" নির্ভুল সর্টিং ব্যবস্থা।
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **সুরক্ষিত রুট ও স্বয়ংক্রিয় নোটিফিকেশন (Protected Routes & Toasts):**
+   Next.js প্রক্সি/মিডলওয়্যার দ্বারা অননুমোদিত রুট অ্যাক্সেস রোধ, স্বয়ংক্রিয় রিডাইরেকশন এবং `react-hot-toast`-এর মাধ্যমে রিয়েল-টাইম সতর্কতা বার্তা।
+
+4. **ইউজার প্রোফাইল ও তথ্য হালনাগাদ (Profile Management):**
+   Better Auth ইন্টিগ্রেশনের মাধ্যমে নিরাপদ লগইন, সাইনআপ এবং প্রোফাইল তথ্য (নাম) পরিবর্তন করার সম্পূর্ণ সুবিধা।
+
+5. **আধুনিক স্কেলিটন লোডার ও কাস্টম ৪MD পেজ (Modern UX):**
+   ডাটা লোড হওয়ার সময়ে সুন্দর স্কেলিটন অ্যানিমেশন এবং ভুল লিংকে প্রবেশের ক্ষেত্রে ইউজার-ফ্রেন্ডলি কাস্টম ৪MD পেজ ও হোমপেজে ফেরার সহজ নেভিগেশন।
+
+---
+
+## 💻 লোকাল ডেভেলপমেন্ট সেটআপ (Local Setup)
+
+প্রজেক্টটি আপনার লোকাল মেশিনে চালাতে নিচের ধাপগুলো অনুসরণ করুন:
+
+1. **রিপোজিটরি ক্লোন করুন:**
+   ```bash
+   git clone https://github.com/maksudulhasanlimon-1857/frontend-project-with-authentication-bazar-dor-ggt4.git
+   cd frontend-project-with-authentication-bazar-dor-ggt4
+   ```
+
+2. **ডিপেন্ডেন্সি ইন্সটল করুন:**
+   ```bash
+   npm install
+   ```
+
+3. **এনভায়রনমেন্ট ভ্যারিয়েবল কনফিগার করুন:**
+   প্রজেক্টের রুটে একটি `.env.local` ফাইল তৈরি করে প্রয়োজনীয় ভ্যারিয়েবল যুক্ত করুন:
+   ```env
+   BETTER_AUTH_SECRET=your_secret_key
+   BETTER_AUTH_URL=http://localhost:3000
+   ```
+
+4. **লোকাল সার্ভার চালু করুন:**
+   ```bash
+   npm run dev
+   ```
+   এরপর ব্রাউজারে `http://localhost:3000` ওপেন করুন।
+
+---
+
+## 📱 রেসপনসিভনেস (Responsiveness)
+
+মোবাইল, ট্যাবলেট এবং ডেস্কটপ—যেকোনো স্ক্রিন সাইজে ওয়েবসাইটটি সম্পূর্ণ ব্যবহারযোগ্য ও অ্যাডাপ্টিভ।
