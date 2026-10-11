@@ -6,6 +6,11 @@ const client = new MongoClient(process.env.MONGODB_URL as string);
 const db = client.db("bazar-dor");
 
 export const auth = betterAuth({
+    baseURL: process.env.BETTER_AUTH_URL || "https://frontend-project-with-authentication-bazar-dor.vercel.app",
+    trustedOrigins: [
+        "http://localhost:3000",
+        "https://frontend-project-with-authentication-bazar-dor.vercel.app",
+    ],
     emailAndPassword: {
         enabled: true,
     },
@@ -17,7 +22,7 @@ export const auth = betterAuth({
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-        }, 
+        },
     },
     database: mongodbAdapter(db, {
         client,
