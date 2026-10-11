@@ -16,7 +16,6 @@ export default function CategoryProductList({
 }: CategoryProductListProps) {
   const [sortBy, setSortBy] = useState<SortType>("default");
 
-  // সর্টিং লজিক
   const sortedProducts = useMemo(() => {
     if (sortBy === "price_asc") {
       return [...products].sort((a, b) => a.today - b.today);
@@ -29,7 +28,6 @@ export default function CategoryProductList({
 
   return (
     <div className="space-y-4">
-      {/* ১. ডেমো ইউআই-এর মতো সর্ট বার (সাদা কার্ড, ডানপাশে ড্রপডাউন) */}
       <div className="bg-white border border-gray-200/90 rounded-2xl p-4 sm:px-6 flex items-center justify-end shadow-xs">
         <div className="flex items-center gap-3">
           <label
@@ -49,7 +47,6 @@ export default function CategoryProductList({
               <option value="price_asc">দাম: কম থেকে বেশি</option>
               <option value="price_desc">দাম: বেশি থেকে কম</option>
             </select>
-            {/* ড্রপডাউন তীর চিহ্ন */}
             <span className="pointer-events-none absolute inset-y-0 right-2.5 flex items-center text-gray-500 text-[10px]">
               ▼
             </span>
@@ -57,12 +54,10 @@ export default function CategoryProductList({
         </div>
       </div>
 
-      {/* ২. পণ্য সংখ্যা কাউন্টার */}
       <p className="text-xs sm:text-sm text-gray-600 font-medium px-1">
         মোট {toBengaliNumber(sortedProducts.length)}টি পণ্য দেখানো হচ্ছে
       </p>
 
-      {/* ৩. ৩ কলামের প্রোডাক্ট গ্রিড */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {sortedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
