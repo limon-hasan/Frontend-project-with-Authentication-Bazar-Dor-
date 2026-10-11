@@ -9,14 +9,13 @@ interface PageProps {
 }
 
 interface CategoryItem {
-  id?: string | number;
+id?: string | number;
   slug?: string;
   nameBn?: string;
   icon?: string;
 }
 
 export default async function CategoryPage({ params }: PageProps) {
-    
   const { slug } = await params;
 
   const categories: CategoryItem[] = await getAllCategories();

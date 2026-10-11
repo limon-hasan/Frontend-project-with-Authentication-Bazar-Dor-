@@ -18,13 +18,11 @@ const categories = [
 ];
 
 export default function Navbar() {
-  // ১. বর্তমান পেজের ইউআরএল পাথ ট্র্যাক করা
   const pathname = usePathname();
 
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* লোগো এবং সাইন ইন / সাইন আপ */}
         <div className="flex items-center justify-between h-20 border-b border-gray-100/80">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#007a3d] flex items-center justify-center p-2.5 shadow-xs shrink-0">
