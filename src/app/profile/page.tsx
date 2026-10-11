@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
@@ -10,52 +11,17 @@ export default function ProfilePage() {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  const [updating, setUpdating] = useState(false);
-
   useEffect(() => {
     if (!isPending && !user) {
       router.push("/signin");
     }
   }, [isPending, user, router]);
 
-  // Sign out handler
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.success("লগআউট সফল হয়েছে!");
     router.push("/signin");
     router.refresh();
-  };
-
-  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const newName = (formData.get("name") as string)?.trim();
-
-    if (!newName) {
-      toast.error("নাম খালি রাখা যাবে না!");
-      return;
-    }
-
-    setUpdating(true);
-
-    try {
-      const res = await authClient.updateUser({
-        name: newName,
-      });
-
-      if (res?.error) {
-        toast.error(res.error.message || "নাম আপডেট করতে সমস্যা হয়েছে!");
-      } else {
-        toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
-        router.refresh();
-      }
-    } catch (err) {
-      toast.error("আপডেট করার সময় ত্রুটি ঘটেছে!");
-      console.error(err);
-    } finally {
-      setUpdating(false);
-    }
   };
 
   if (isPending) {
@@ -119,31 +85,36 @@ export default function ProfilePage() {
       </div>
 
       <div className="bg-white border border-gray-200/90 rounded-2xl shadow-xs p-5 sm:p-6 space-y-4">
-        <h3 className="text-base font-black text-gray-900">তথ্য</h3>
-
-        <form onSubmit={handleUpdate} className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-xs sm:text-sm font-bold text-gray-800 block">
-              নাম
-            </label>
-            <input
-              type="text"
-              name="name"
-              defaultValue={user.name}
-              placeholder="আপনার নাম লিখুন"
-              className="w-full bg-[#fcfdfc] border border-gray-200 text-gray-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
-              required
-            />
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-base font-black text-gray-900">
+              ব্যক্তিগত তথ্য
+            </h3>
+            <p className="text-xs text-gray-500">
+              আপনার বর্তমান নাম ও প্রোফাইল বিবরণী
+            </p>
           </div>
-
-          <button
-            type="submit"
-            disabled={updating}
-            className="w-full py-3 bg-[#058a44] hover:bg-[#04753a] text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-[#058a44]/25 hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer disabled:bg-gray-300 disabled:text-gray-500"
+          <Link
+            href="/profile/update"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#058a44] hover:bg-[#04753a] text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer"
           >
-            {updating ? "আপডেট হচ্ছে..." : "আপডেট"}
-          </button>
-        </form>
+            <span>✏️</span>
+            <span>তথ্য পরিবর্তন করুন</span>
+          </Link>
+        </div>
+
+        <div className="divide-y divide-gray-100 text-xs sm:text-sm pt-2">
+          <div className="py-2.5 flex justify-between items-center">
+            <span className="text-gray-500 font-medium">নাম:</span>
+            <span className="text-gray-900 font-semibold">
+              {user.name || "দেওয়া নেই"}
+            </span>
+          </div>
+          <div className="py-2.5 flex justify-between items-center">
+            <span className="text-gray-500 font-medium">ইমেইল:</span>
+            <span className="text-gray-900 font-semibold">{user.email}</span>
+          </div>
+        </div>
       </div>
     </main>
   );

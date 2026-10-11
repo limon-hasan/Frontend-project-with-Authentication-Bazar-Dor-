@@ -9,7 +9,7 @@ import UserInfo from "./UserInfo";
 const categories = [
   { id: "chal", nameBn: "চাল", icon: "🍚" },
   { id: "dal", nameBn: "ডাল", icon: "🫘" },
-  { id: "tel", nameBn: "তেল", icon: "🧴" },
+  { id: "tel", nameBn: "তেল", icon: "🛢️" },
   { id: "shobji", nameBn: "সবজি", icon: "🥬" },
   { id: "mach", nameBn: "মাছ", icon: "🐟" },
   { id: "mangsho", nameBn: "মাংস", icon: "🍗" },
