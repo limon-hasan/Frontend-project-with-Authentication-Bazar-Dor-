@@ -11,9 +11,15 @@ function SignInForm() {
   const searchParams = useSearchParams();
   const hasShownToast = useRef(false);
 
+  const redirectPath =
+    searchParams.get("redirect") || searchParams.get("callbackUrl") || "/";
+
   useEffect(() => {
     const error = searchParams.get("error");
-    if (error === "unauthorized" && !hasShownToast.current) {
+    if (
+      (error === "unauthorized" || error === "login_required") &&
+      !hasShownToast.current
+    ) {
       toast.error("প্রোটেক্টেড পেজ দেখার জন্য অনুগ্রহ করে আগে সাইন ইন করুন!");
       hasShownToast.current = true;
     }
@@ -35,7 +41,6 @@ function SignInForm() {
     if (data) {
       toast.success("সফলভাবে সাইন ইন হয়েছে!");
 
-      const redirectPath = searchParams.get("redirect") || "/";
       setTimeout(() => {
         router.push(redirectPath);
         router.refresh();
@@ -51,12 +56,14 @@ function SignInForm() {
   const handleGoogleSignin = async () => {
     await authClient.signIn.social({
       provider: "google",
+      callbackURL: redirectPath,
     });
   };
 
   const handleGithubSignin = async () => {
     await authClient.signIn.social({
       provider: "github",
+      callbackURL: redirectPath,
     });
   };
 
