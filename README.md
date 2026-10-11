@@ -1,77 +1,85 @@
-# 🛒 বাজার দর (BazarDor)
+# 🛒 BazarDor (বাজার দর)
 
-> নিত্যপ্রয়োজনীয় পণ্যের সর্বশেষ বাজার দর এক নজরে যাচাই করার একটি আধুনিক ও নির্ভরযোগ্য প্ল্যাটফর্ম।
+> A modern, responsive real-time daily grocery and commodity price tracking platform.
 
-**বাজার দর (BazarDor)** হলো একটি আধুনিক, দ্রুতগতির ও রেসপনসিভ ওয়েব অ্যাপ্লিকেশন যা ব্যবহারকারীদের প্রতিদিনের চাল, ডাল, তেল, শাকসবজি, মাছ, মাংস ইত্যাদির সঠিক বাজারদর ও মূল্যের তারতম্য পর্যবেক্ষণ করতে সাহায্য করে।
-
----
-
-## 🚀 লাইভ ডেমো (Live Demo)
-
-- **লাইভ ওয়েবসাইট:** [https://frontend-project-with-authentication-bazar-dor.vercel.app](https://frontend-project-with-authentication-bazar-dor.vercel.app)
+**BazarDor** is a production-grade web application tailored to provide consumers and shoppers across Bangladesh with transparent, real-time insights into market prices for essential commodities, including rice, pulses, oil, vegetables, fish, and meat.
 
 ---
 
-## 🛠️ ব্যবহৃত প্রযুক্তিসমূহ (Technologies Used)
+## 🌐 Live Demo
 
-- **ফ্রেমওয়ার্ক:** [Next.js](https://nextjs.org/) (App Router)
-- **প্রোগ্রামিং ল্যাঙ্গুয়েজ:** [TypeScript](https://www.typescriptlang.org/)
-- **স্টাইলিং:** [Tailwind CSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
-- **অথেনটিকেশন:** [Better Auth](https://better-auth.com/) (Email & Password, Google, GitHub)
-- **টোস্ট নোটিফিকেশন:** [React Hot Toast](https://react-hot-toast.com/)
-- **হোস্টিং ও ডিপ্লয়মেন্ট:** [Vercel](https://vercel.com/)
+- **Live URL:** [https://frontend-project-with-authentication-bazar-dor.vercel.app](https://frontend-project-with-authentication-bazar-dor.vercel.app)
 
 ---
 
-## ✨ প্রধান ৫টি বৈশিষ্ট্য (5 Key Features)
+## 🛠️ Tech Stack & Architecture
 
-1. **রিয়েল-টাইম প্রাইস টিকার ও ক্যাটাগরি ব্রাউজিং:**
-   লাইভ বাংলা টিকার স্ক্রলারের মাধ্যমে সাম্প্রতিক পণ্যমূল্য ও দামের শতকরা হ্রাস-বৃদ্ধি প্রদর্শন এবং মসৃণ ক্যাটাগরি ফিল্টারিং।
-
-2. **বাংলা নিউমেরিক্যাল সর্টিং (Numeric Price Sorting):**
-   বাংলা সংখ্যার স্ট্রিংয়ের বদলে প্রকৃত গাণিতিক মান (numeric value) অনুযায়ী "দাম: কম থেকে বেশি" এবং "দাম: বেশি থেকে কম" নির্ভুল সর্টিং ব্যবস্থা।
-
-3. **সুরক্ষিত রুট ও স্বয়ংক্রিয় নোটিফিকেশন (Protected Routes & Toasts):**
-   Next.js প্রক্সি/মিডলওয়্যার দ্বারা অননুমোদিত রুট অ্যাক্সেস রোধ, স্বয়ংক্রিয় রিডাইরেকশন এবং `react-hot-toast`-এর মাধ্যমে রিয়েল-টাইম সতর্কতা বার্তা।
-
-4. **ইউজার প্রোফাইল ও তথ্য হালনাগাদ (Profile Management):**
-   Better Auth ইন্টিগ্রেশনের মাধ্যমে নিরাপদ লগইন, সাইনআপ এবং প্রোফাইল তথ্য (নাম) পরিবর্তন করার সম্পূর্ণ সুবিধা।
-
-5. **আধুনিক স্কেলিটন লোডার ও কাস্টম ৪MD পেজ (Modern UX):**
-   ডাটা লোড হওয়ার সময়ে সুন্দর স্কেলিটন অ্যানিমেশন এবং ভুল লিংকে প্রবেশের ক্ষেত্রে ইউজার-ফ্রেন্ডলি কাস্টম ৪MD পেজ ও হোমপেজে ফেরার সহজ নেভিগেশন।
+- **Framework:** [Next.js](https://nextjs.org/) (App Router, Server & Client Components)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+- **Authentication:** [Better Auth](https://better-auth.com/) (Email/Password & Social OAuth)
+- **Toast Notifications:** [React Hot Toast](https://react-hot-toast.com/)
+- **Deployment & Hosting:** [Vercel](https://vercel.com/)
 
 ---
 
-## 💻 লোকাল ডেভেলপমেন্ট সেটআপ (Local Setup)
+## ✨ 5 Key Features
 
-প্রজেক্টটি আপনার লোকাল মেশিনে চালাতে নিচের ধাপগুলো অনুসরণ করুন:
+1. **Real-time Bengali Price Ticker & Category Navigation**  
+   Dynamic marquee-style price ticker showcasing current commodity rates alongside percentage changes, paired with an active-state pill navigation bar.
 
-1. **রিপোজিটরি ক্লোন করুন:**
-   ```bash
-   git clone https://github.com/maksudulhasanlimon-1857/frontend-project-with-authentication-bazar-dor-ggt4.git
-   cd frontend-project-with-authentication-bazar-dor-ggt4
-   ```
+2. **Accurate Numeric Bengali Price Sorting**  
+   Intelligent price sorting mechanism (`দাম: কম থেকে বেশি` and `দাম: বেশি থেকে কম`) operating on actual numerical values rather than raw Bengali character strings.
 
-2. **ডিপেন্ডেন্সি ইন্সটল করুন:**
-   ```bash
-   npm install
-   ```
+3. **Protected Route Shielding with Contextual Toasts**  
+   Server-side Next.js route proxy protecting sensitive routes (e.g., `/profile`), redirecting unauthenticated users to sign-in while triggering immediate feedback toasts.
 
-3. **এনভায়রনমেন্ট ভ্যারিয়েবল কনফিগার করুন:**
-   প্রজেক্টের রুটে একটি `.env.local` ফাইল তৈরি করে প্রয়োজনীয় ভ্যারিয়েবল যুক্ত করুন:
-   ```env
-   BETTER_AUTH_SECRET=your_secret_key
-   BETTER_AUTH_URL=http://localhost:3000
-   ```
+4. **User Profile & Account Information Management**  
+   Secure authentication session handling with dedicated capabilities for authenticated users to modify and update their profile details.
 
-4. **লোকাল সার্ভার চালু করুন:**
-   ```bash
-   npm run dev
-   ```
-   এরপর ব্রাউজারে `http://localhost:3000` ওপেন করুন।
+5. **Optimized UX with Skeleton Placeholders & Custom 404**  
+   Shimmer skeleton loaders displayed during product data hydration across Home and Category pages, coupled with a localized friendly 404 not-found screen.
 
 ---
 
-## 📱 রেসপনসিভনেস (Responsiveness)
+## 🚀 Getting Started Locally
 
-মোবাইল, ট্যাবলেট এবং ডেস্কটপ—যেকোনো স্ক্রিন সাইজে ওয়েবসাইটটি সম্পূর্ণ ব্যবহারযোগ্য ও অ্যাডাপ্টিভ।
+Follow these steps to run the application in your local environment:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/maksudulhasanlimon-1857/frontend-project-with-authentication-bazar-dor-ggt4.git
+cd frontend-project-with-authentication-bazar-dor-ggt4
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+BETTER_AUTH_SECRET=your_super_secret_key
+BETTER_AUTH_URL=http://localhost:3000
+```
+
+### 4. Run Development Server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to inspect the application.
+
+---
+
+## 📱 Responsive Design
+
+Fully optimized for modern viewports—supporting mobile devices, tablets, and wide desktop screens through dynamic CSS Grid breakdowns and accessible UI containers.
+
+
