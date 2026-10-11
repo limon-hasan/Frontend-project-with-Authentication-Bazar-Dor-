@@ -17,15 +17,9 @@ export const auth = betterAuth({
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-        },
+        }, 
     },
     database: mongodbAdapter(db, {
         client,
     }),
-    trustedOrigins: [
-        "http://localhost:3000",
-        "https://frontend-project-with-authentication-bazar-dor-ggt4-ofp4rsux4.vercel.app", // আপনার লাইভ Vercel ডোমেইন
-        process.env.BETTER_AUTH_URL || "",
-        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "",
-    ].filter(Boolean),
 });
