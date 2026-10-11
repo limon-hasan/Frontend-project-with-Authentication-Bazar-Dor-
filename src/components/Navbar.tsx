@@ -1,12 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import CurrentDate from "@/components/CurrentDate";
 
-// ৮টি মূল ক্যাটাগরির তালিকা ও আইকন
 const categories = [
   { id: "chal", nameBn: "চাল", icon: "🍚" },
   { id: "dal", nameBn: "ডাল", icon: "🫘" },
-  { id: "tel", nameBn: "তেল", icon: "🛢️" },
+  { id: "tel", nameBn: "তেল", icon: "🧴" },
   { id: "shobji", nameBn: "সবজি", icon: "🥬" },
   { id: "mach", nameBn: "মাছ", icon: "🐟" },
   { id: "mangsho", nameBn: "মাংস", icon: "🍗" },
@@ -15,12 +17,14 @@ const categories = [
 ];
 
 export default function Navbar() {
+  // ১. বর্তমান পেজের ইউআরএল পাথ ট্র্যাক করা
+  const pathname = usePathname();
+
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* উপরের রো: লোগো, তারিখ এবং সাইন ইন / সাইন আপ */}
+        {/* লোগো এবং সাইন ইন / সাইন আপ */}
         <div className="flex items-center justify-between h-20 border-b border-gray-100/80">
-          {/* লোগো এবং রিয়েল-টাইম ক্লায়েন্ট তারিখ */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#007a3d] flex items-center justify-center p-2.5 shadow-xs shrink-0">
               <Image
@@ -39,7 +43,6 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* সাইন ইন ও সাইন আপ বাটন (সবুজ ড্রপ-শ্যাডো সহ) */}
           <div className="flex items-center gap-5">
             <Link
               href="/signin"
@@ -57,20 +60,27 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Nicher row: 8-ti category list (Logo-r shathe left-align kora) */}
-        <nav className="flex items-center justify-start gap-5 sm:gap-8 py-3 overflow-x-auto no-scrollbar text-xs sm:text-sm font-semibold text-gray-700">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/category/${cat.id}`}
-              className="inline-flex items-center gap-1.5 hover:text-emerald-700 transition-colors whitespace-nowrap shrink-0 group py-1"
-            >
-              <span className="text-base group-hover:scale-110 transition-transform">
-                {cat.icon}
-              </span>
-              <span>{cat.nameBn}</span>
-            </Link>
-          ))}
+        {/* ক্যাটাগরি তালিকা (অ্যাক্টিভ হলে সবুজ ক্যাপসুল হাইলাইট) */}
+        <nav className="flex items-center justify-start gap-2.5 sm:gap-3 py-2.5 overflow-x-auto no-scrollbar text-xs sm:text-sm font-semibold">
+          {categories.map((cat) => {
+            // ২. বর্তমান ইউআরএল এই ক্যাটাগরির সাথে মিলছে কি না চেক করা
+            const isActive = pathname === `/category/${cat.id}`;
+
+            return (
+              <Link
+                key={cat.id}
+                href={`/category/${cat.id}`}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl whitespace-nowrap shrink-0 transition-all ${
+                  isActive
+                    ? "bg-[#007a3d] text-white font-bold shadow-xs scale-100" // স্ক্রিনশটের মতো সবুজ ব্যাকগ্রাউন্ড
+                    : "text-gray-700 hover:text-emerald-700 hover:bg-gray-50"
+                }`}
+              >
+                <span className="text-base">{cat.icon}</span>
+                <span>{cat.nameBn}</span>
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

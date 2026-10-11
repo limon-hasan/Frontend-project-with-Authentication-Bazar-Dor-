@@ -18,6 +18,7 @@ export default function CategoryProductList({
 
   const sortedProducts = useMemo(() => {
     if (sortBy === "price_asc") {
+      // sortedProducts = [...products].sort((a, b) => a.today - b.today);
       return [...products].sort((a, b) => a.today - b.today);
     }
     if (sortBy === "price_desc") {
