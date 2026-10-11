@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 
 export default function SignInPage() {
@@ -12,41 +13,45 @@ export default function SignInPage() {
         </p>
       </div>
 
-      <div className="bg-white border border-gray-200/90 rounded-2xl sm:rounded-3xl shadow-xs w-full max-w-[440px] p-6 sm:p-8 space-y-5">
-        <form className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-xs sm:text-sm font-bold text-gray-800 block">
-              ইমেইল
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="you@example.com"
-              className="w-full bg-[#fcfdfc] border border-gray-200 text-gray-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-gray-400"
-            />
-          </div>
+      <div className="bg-white border border-gray-200/90 rounded-2xl sm:rounded-3xl shadow-xs w-full max-w-[440px] p-6 sm:p-8">
+        <form>
+          <fieldset className="fieldset space-y-3.5 p-0">
+            <div>
+              <label className="label py-1 text-xs sm:text-sm font-bold text-gray-800">
+                ইমেইল
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs sm:text-sm font-bold text-gray-800 block">
-              পাসওয়ার্ড
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="কমপক্ষে ৮ অক্ষর"
-              className="w-full bg-[#fcfdfc] border border-gray-200 text-gray-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600 placeholder:text-gray-400"
-            />
-          </div>
+            <div>
+              <label className="label py-1 text-xs sm:text-sm font-bold text-gray-800">
+                পাসওয়ার্ড
+              </label>
+              <input
+                type="password"
+                name="password"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                placeholder="কমপক্ষে ৮ অক্ষর"
+                required
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 bg-[#058a44] hover:bg-[#04753a] text-white text-sm font-bold rounded-xl shadow-md shadow-[#058a44]/25 hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer mt-2"
-          >
-            সাইন ইন
-          </button>
+            <button
+              type="submit"
+              className="btn w-full bg-[#058a44] hover:bg-[#04753a] text-white font-bold rounded-xl border-none shadow-md shadow-[#058a44]/25 hover:shadow-lg transition-all active:scale-[0.98] mt-3"
+            >
+              সাইন ইন
+            </button>
+          </fieldset>
         </form>
 
-        <div className="relative flex items-center justify-center my-4">
+        <div className="relative flex items-center justify-center my-5">
           <div className="border-t border-gray-200 w-full" />
           <span className="bg-white px-3 text-xs text-gray-500 font-medium absolute">
             অথবা
@@ -56,7 +61,7 @@ export default function SignInPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <button
             type="button"
-            className="flex items-center justify-center gap-2 py-2 px-3 border border-gray-200 hover:bg-gray-50 rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
+            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
               <path
@@ -81,7 +86,7 @@ export default function SignInPage() {
 
           <button
             type="button"
-            className="flex items-center justify-center gap-2 py-2 px-3 border border-gray-200 hover:bg-gray-50 rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
+            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
           >
             <svg
               className="w-4 h-4 shrink-0 fill-current text-gray-800"
@@ -97,7 +102,7 @@ export default function SignInPage() {
           </button>
         </div>
 
-        <p className="text-center text-xs text-gray-600 font-medium pt-2">
+        <p className="text-center text-xs text-gray-600 font-medium pt-4">
           অ্যাকাউন্ট নেই?{" "}
           <Link
             href="/signup"
