@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getAllCategories, getAllProducts } from "@/lib/api";
+import { toBengaliNumber } from "@/lib/utils";
 import { Product } from "@/types";
+import CategoryProductList from "@/components/CategoryProductList";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -14,9 +16,9 @@ interface CategoryItem {
 }
 
 export default async function CategoryPage({ params }: PageProps) {
+    
   const { slug } = await params;
 
-  // ১. ডেটা ফেচ করা
   const categories: CategoryItem[] = await getAllCategories();
   const allProducts: Product[] = await getAllProducts();
 
@@ -73,33 +75,24 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <div className="py-6 sm:py-8 space-y-6">
-      <nav className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
-        <Link href="/" className="hover:text-emerald-700 transition-colors">
-          হোম
-        </Link>
-        <span>&gt;</span>
-        <span className="text-gray-900 font-medium">
-          {currentCategory.nameBn}
-        </span>
-      </nav>
-
-      <div className="flex items-center gap-4 pb-4 border-b border-gray-200/80">
-        <div className="w-14 h-14 rounded-2xl bg-[#f4f7f4] border border-gray-200/60 flex items-center justify-center text-3xl shrink-0 shadow-xs">
-          {currentCategory.icon || "🧺"}
+      <section className="bg-white border border-gray-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-2xl bg-[#f4f7f4] flex items-center justify-center text-3xl shrink-0">
+            {currentCategory.icon || "🧺"}
+          </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
+              {currentCategory.nameBn}
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1 font-medium">
+              {toBengaliNumber(categoryProducts.length)}টি পণ্যের আজকের দাম ও
+              পরিবর্তন
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
-            {currentCategory.nameBn}
-          </h1>
-          <p className="text-xs sm:text-sm text-gray-600 mt-0.5">
-            {currentCategory.nameBn} ক্যাটাগরির আজকের সর্বশেষ বাজার দর তালিকা
-          </p>
-        </div>
-      </div>
+      </section>
 
-      <div className="p-4 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-center text-sm text-gray-600 font-medium">
-        মোট {categoryProducts.length}টি পণ্য পাওয়া গেছে
-      </div>
+      <CategoryProductList products={categoryProducts} />
     </div>
   );
 }
