@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import CurrentDate from "@/components/CurrentDate";
+import UserInfo from "./UserInfo";
 
 const categories = [
   { id: "chal", nameBn: "চাল", icon: "🍚" },
@@ -43,21 +44,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex items-center gap-5">
-            <Link
-              href="/signin"
-              className="text-sm sm:text-base font-bold text-gray-800 hover:text-emerald-700 transition-colors"
-            >
-              সাইন ইন
-            </Link>
-
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center text-sm sm:text-base font-bold text-white bg-[#058a44] hover:bg-[#04753a] px-5 py-2.5 rounded-xl shadow-lg shadow-[#058a44]/35 hover:shadow-xl hover:shadow-[#058a44]/45 transition-all active:scale-95"
-            >
-              সাইন আপ
-            </Link>
-          </div>
+          <UserInfo />
         </div>
 
         {/* ক্যাটাগরি তালিকা (অ্যাক্টিভ হলে সবুজ ক্যাপসুল হাইলাইট) */}

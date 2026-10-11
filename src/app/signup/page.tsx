@@ -1,18 +1,57 @@
-"use client"
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-  const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
+
+export default function SignUpPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const user = Object.fromEntries(formData.entries()) as {
-      name: string;
-      email: string;
-      image: string;
-      password: string;
-    };
-    console.log(user);
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    if (password !== confirmPassword) {
+      toast.error("পাসওয়ার্ড দুটি মেলেনি!");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে!");
+      return;
+    }
+
+    setLoading(true);
+
+    const { data, error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+      callbackURL: "/",
+    });
+
+    setLoading(false);
+
+    if (data) {
+      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+      router.push("/");
+      router.refresh();
+    }
+
+    if (error) {
+      toast.error(error.message || "অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে!");
+      console.error(error);
+    }
   };
-export default function SignUpPage() {
+
   return (
     <main className="min-h-[85vh] flex flex-col items-center justify-center py-10 px-4">
       <div className="text-center space-y-1.5 mb-6">
@@ -81,9 +120,10 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              className="btn w-full bg-[#058a44] hover:bg-[#04753a] text-white font-bold rounded-xl border-none shadow-md shadow-[#058a44]/25 hover:shadow-lg transition-all active:scale-[0.98] mt-3"
+              disabled={loading}
+              className="btn w-full bg-[#058a44] hover:bg-[#04753a] text-white font-bold rounded-xl border-none shadow-md shadow-[#058a44]/25 hover:shadow-lg transition-all active:scale-[0.98] mt-3 disabled:bg-gray-300 disabled:text-gray-500"
             >
-              অ্যাকাউন্ট তৈরি করুন
+              {loading ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "অ্যাকাউন্ট তৈরি করুন"}
             </button>
           </fieldset>
         </form>
