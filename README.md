@@ -49,8 +49,8 @@ Follow these steps to run the application in your local environment:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/maksudulhasanlimon-1857/frontend-project-with-authentication-bazar-dor-ggt4.git
-cd frontend-project-with-authentication-bazar-dor-ggt4
+git clone https://github.com/limon-hasan/Frontend-project-with-Authentication-Bazar-Dor-.git bazar-dor
+cd bazar-dor
 ```
 
 ### 2. Install Dependencies
