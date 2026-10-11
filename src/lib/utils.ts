@@ -1,30 +1,42 @@
-export const toBengaliNumber = (
-    num: number | string | undefined | null
-): string => {
-    if (num === undefined || num === null || num === "") {
-        return "০";
-    }
-
+// ইংরেজি সংখ্যাকে বাংলা সংখ্যায় রূপান্তর
+export function toBengaliNumber(num: number | string): string {
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-    return num
-        .toString()
-        .replace(/\d/g, (d) => bengaliDigits[parseInt(d, 10)]);
-};
+    return String(num).replace(/\d/g, (d) => bengaliDigits[Number(d)]);
+}
 
-export const parseBengaliNumber = (
-    str: string | number | undefined | null
-): number => {
-    if (!str) return 0;
-    if (typeof str === "number") return str;
+// আজকের সম্পূর্ণ তারিখ ডাইনামিকালি বাংলা ফরম্যাটে রূপান্তর
+export function getCurrentBengaliDate(): string {
+    const now = new Date();
 
-    const bengaliDigits: Record<string, string> = {
-        "০": "0", "১": "1", "২": "2", "৩": "3", "৪": "4",
-        "৫": "5", "৬": "6", "৭": "7", "৮": "8", "৯": "9",
-    };
+    const days = [
+        "রবিবার",
+        "সোমবার",
+        "মঙ্গলবার",
+        "বুধবার",
+        "বৃহস্পতিবার",
+        "শুক্রবার",
+        "শনিবার",
+    ];
 
-    const normalized = str
-        .toString()
-        .replace(/[০-৯]/g, (char) => bengaliDigits[char] || char);
-    const clean = normalized.replace(/[^0-9.-]/g, "");
-    return parseFloat(clean) || 0;
-};
+    const months = [
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর",
+    ];
+
+    const dayName = days[now.getDay()];
+    const dayNumber = toBengaliNumber(now.getDate());
+    const monthName = months[now.getMonth()];
+    const yearNumber = toBengaliNumber(now.getFullYear());
+
+    return `${dayName}, ${dayNumber} ${monthName}, ${yearNumber}`;
+}

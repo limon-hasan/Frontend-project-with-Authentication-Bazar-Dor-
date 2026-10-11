@@ -1,37 +1,42 @@
 import type { Metadata } from "next";
-import { Hind_Siliguri } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Marquee from "@/components/Marquee";
 
-const hindSiliguri = Hind_Siliguri({
-  subsets: ["bengali", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-hind-siliguri",
-  display: "swap",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "বাজার দর - প্রতিদিনের নিত্যপ্রয়োজনীয় বাজার দর",
-  description:
-    "সারাদেশের প্রধান বাজারগুলোর আজকের সর্বশেষ হালনাগাদ দর ও বিশ্লেষণ",
+  title: "বাজার দর | আজকের বাজার দর এক নজরে",
+  description: "নিত্যপ্রয়োজনীয় পণ্যের বাজার দর, বিশ্লেষণ এবং পরিবর্তন",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="bn">
-      <body
-        className={`${hindSiliguri.className} bg-[#f8faf8] text-gray-900 antialiased min-h-screen flex flex-col`}
-      >
+    <html
+      lang="bn"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-[#f4f6f4] text-gray-800">
         <Navbar />
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-          {children}
-        </main>
+        <Marquee />
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4">{children}</main>
         <Footer />
+        <Toaster position="top-right" />
       </body>
     </html>
   );
