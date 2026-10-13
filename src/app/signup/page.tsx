@@ -1,17 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
 export default function SignUpPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
@@ -31,37 +30,48 @@ export default function SignUpPage() {
 
     setLoading(true);
 
-    const { data, error } = await authClient.signUp.email({
-      name,
-      email,
-      password,
-    });
+    try {
+      const { data, error } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+      });
 
-    setLoading(false);
+      if (data) {
+        await authClient.signOut();
 
-    if (data) {
-      toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে! অনুগ্রহ করে সাইন ইন করুন।");
+        toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে! অনুগ্রহ করে সাইন ইন করুন।");
 
-      setTimeout(() => {
-        router.push("/signin");
-      }, 600);
-    }
+        setTimeout(() => {
+          window.location.href = "/signin";
+        }, 500);
+        return;
+      }
 
-    if (error) {
-      toast.error(error.message || "অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে!");
-      console.error(error);
+      if (error) {
+        toast.error(error.message || "অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে!");
+        console.error(error);
+        setLoading(false);
+      }
+    } catch (err) {
+      toast.error("সার্ভারে সমস্যা হয়েছে, কিছুক্ষণ পর চেষ্টা করুন!");
+      setLoading(false);
     }
   };
 
   const handleGoogleSignin = async () => {
+    setLoading(true);
     await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/",
     });
   };
 
   const handleGithubSignin = async () => {
+    setLoading(true);
     await authClient.signIn.social({
       provider: "github",
+      callbackURL: "/",
     });
   };
 
@@ -78,7 +88,7 @@ export default function SignUpPage() {
 
       <div className="bg-white border border-gray-200/90 rounded-2xl sm:rounded-3xl shadow-xs w-full max-w-[440px] p-6 sm:p-8">
         <form onSubmit={onSubmit}>
-          <fieldset className="fieldset space-y-3.5 p-0">
+          <fieldset className="fieldset space-y-3.5 p-0" disabled={loading}>
             <div>
               <label className="label py-1 text-xs sm:text-sm font-bold text-gray-800">
                 নাম
@@ -86,7 +96,7 @@ export default function SignUpPage() {
               <input
                 type="text"
                 name="name"
-                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400 disabled:bg-gray-100"
                 placeholder="যেমন: রহিম উদ্দিন"
                 required
               />
@@ -99,7 +109,7 @@ export default function SignUpPage() {
               <input
                 type="email"
                 name="email"
-                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400 disabled:bg-gray-100"
                 placeholder="you@example.com"
                 required
               />
@@ -112,7 +122,7 @@ export default function SignUpPage() {
               <input
                 type="password"
                 name="password"
-                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400 disabled:bg-gray-100"
                 placeholder="কমপক্ষে ৮ অক্ষর"
                 required
               />
@@ -125,7 +135,7 @@ export default function SignUpPage() {
               <input
                 type="password"
                 name="confirmPassword"
-                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400"
+                className="input input-bordered w-full bg-[#fcfdfc] border-gray-200 rounded-xl focus:border-[#058a44] focus:outline-none text-xs sm:text-sm placeholder:text-gray-400 disabled:bg-gray-100"
                 placeholder="আবার লিখুন"
                 required
               />
@@ -151,8 +161,9 @@ export default function SignUpPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <button
             onClick={handleGoogleSignin}
+            disabled={loading}
             type="button"
-            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
+            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case disabled:opacity-60"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
               <path
@@ -177,8 +188,9 @@ export default function SignUpPage() {
 
           <button
             onClick={handleGithubSignin}
+            disabled={loading}
             type="button"
-            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case"
+            className="btn btn-outline border-gray-200 hover:bg-gray-50 hover:text-gray-800 bg-white rounded-xl text-[11px] sm:text-xs font-semibold text-gray-700 h-auto py-2.5 px-3 normal-case disabled:opacity-60"
           >
             <svg
               className="w-4 h-4 shrink-0 fill-current text-gray-800"
